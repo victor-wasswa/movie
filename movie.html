@@ -3,24 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Finder</title>
+    <title>MovieCritiQ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet"> <!-- Google Font -->
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: #000; /* Black background */
+            color: #fff; /* White text */
+        }
+        .navbar {
+            background-color: #ff0000; /* Red background for navbar */
+            padding: 15px;
+            border-radius: 10px; /* Fully rounded */
+            display: flex; /* Flexbox for layout */
+            justify-content: space-around; /* Space links evenly */
+            position: relative; /* Position relative for layout */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5); /* Shadow for depth */
+        }
+        .navbar a {
+            color: #fff; /* White links */
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 1.2em; /* Increased font size */
+            font-weight: bold; /* Bold text */
+            position: relative; /* Position for pseudo-element */
+        }
+        .navbar a:hover {
+            background-color: #cc0000; /* Darker red on hover */
+        }
+        .navbar a::after {
+            content: '';
+            display: block;
+            height: 2px;
+            background: #fff; /* White divider */
+            margin-top: 5px; /* Space above the divider */
+            opacity: 0; /* Initially hidden */
+            transition: opacity 0.3s; /* Smooth transition */
+        }
+        .navbar a:hover::after {
+            opacity: 1; /* Show divider on hover */
         }
         .container {
             max-width: 900px;
             margin: 20px auto;
             padding: 20px;
-            background-color: white;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background-color: rgba(34, 34, 34, 0.8); /* Semi-transparent dark container */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+            border-radius: 10px; /* Rounded corners */
         }
         h1 {
             text-align: center;
-            color: #333;
+            color: #ff0000; /* Red title */
+            font-weight: bold;
+            font-size: 3em; /* Larger font size */
+            font-family: 'Arial Black', sans-serif; /* Eye-catching font */
         }
         input[type="text"] {
             width: 100%;
@@ -31,7 +70,7 @@
         }
         button {
             padding: 10px 20px;
-            background-color: #007BFF;
+            background-color: #ff0000; /* Red button */
             border: none;
             color: white;
             border-radius: 5px;
@@ -39,23 +78,34 @@
             font-size: 16px;
         }
         button:hover {
-            background-color: #0056b3;
+            background-color: #cc0000; /* Darker red on hover */
         }
         .results {
             margin-top: 20px;
         }
         .results h2 {
-            color: #333;
+            color: #ff0000; /* Red results title */
         }
         .result-item {
             margin-bottom: 15px;
+            color: #fff; /* White text for movie information */
+        }
+        .movie-poster {
+            max-width: 100%;
+            height: auto;
         }
     </style>
 </head>
 <body>
+    <div class="navbar">
+        <a href="MovieCritiQ.html">Home</a>
+        <a href="https://www.empireonline.com/movies/news/">News</a>
+        <a href="https://www.imdb.com/trailers/">Top Picks</a>
+        <a href="https://www.imdb.com/calendar/">Upcoming Releases</a>
+    </div>
 
     <div class="container">
-        <h1>Movie Finder</h1>
+        <h1>MovieCritiQ</h1>
         <label for="movie-name">Enter Movie Name:</label>
         <input type="text" id="movie-name" placeholder="Search for a movie">
         <button onclick="searchMovie()">Search</button>
@@ -85,6 +135,7 @@
 
                 let resultsHTML = `
                     <h2>Movie Information</h2>
+                    <img src="${movieData.Poster}" alt="Movie Poster" class="movie-poster">
                     <div class="result-item">
                         <strong>Title:</strong> ${movieData.Title}
                     </div>
@@ -116,11 +167,16 @@
                         <strong>Country:</strong> ${movieData.Country}
                     </div>
                     <div class="result-item">
+                        <strong>Trailer:</strong> <a href="https://www.youtube.com/results?search_query=${encodeURIComponent(movieData.Title + ' trailer')}" target="_blank">Watch Trailer</a>
+                    </div>
+                    <div class="result-item">
                         <strong>Streaming Sites:</strong>
                         <ul>
                             <li><a href="https://www.netflix.com" target="_blank">Netflix</a></li>
                             <li><a href="https://www.amazon.com/Prime-Video" target="_blank">Amazon Prime</a></li>
-                            <!-- Add more streaming platforms -->
+                            <li><a href="https://www.hulu.com" target="_blank">Hulu</a></li>
+                            <li><a href="https://www.disneyplus.com" target="_blank">Disney+</a></li>
+                            <li><a href="https://www.hbomax.com" target="_blank">HBO Max</a></li>
                         </ul>
                     </div>
                 `;
@@ -131,6 +187,5 @@
             }
         }
     </script>
-
 </body>
 </html>
