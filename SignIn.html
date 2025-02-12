@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscribe - Movie Review Club</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 10px;
+            
+        }
+        h1 {
+            color: #ff0000;
+        }
+        p {
+            font-size: 18px;
+        }
+        .paypal-button {
+            background-color: #ff0000;
+            color: white;
+            font-size: 18px;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .paypal-button:hover {
+            background-color: #cc0000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>MovieCritiQ</h1>
+        <p>Subscribe for only <strong>$1/month</strong> to access premium movie reviews!</p>
+        
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+            <input type="hidden" name="cmd" value="_xclick-subscriptions">
+            <input type="hidden" name="business" value="victorwasswa37@gmail.com">
+            <input type="hidden" name="item_name" value="Movie Review Subscription">
+            <input type="hidden" name="a3" value="1.00">
+            <input type="hidden" name="p3" value="1">
+            <input type="hidden" name="t3" value="M">
+            <input type="hidden" name="src" value="1">
+            <input type="hidden" name="currency_code" value="USD">
+<input type="hidden" name="return" value="SignIn.html">
+
+            <button type="submit" class="paypal-button">Join for $1/month</button>
+        </form>
+    </div>
+</body>
+</html>
