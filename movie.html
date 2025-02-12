@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -94,11 +95,23 @@
             max-width: 100%;
             height: auto;
         }
+        .subscribe-message {
+            color: #ff0000; /* Red message */
+            text-align: center;
+            margin-top: 20px;
+            display: none; /* Initially hidden */
+        }
+        .loading {
+            display: none; /* Initially hidden */
+            text-align: center;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <div class="navbar">
         <a href="MovieCritiQ.html">Home</a>
+        <a href="SignIn.html">Subscribe now!</a>
         <a href="https://www.empireonline.com/movies/news/">News</a>
         <a href="https://www.imdb.com/trailers/">Top Picks</a>
         <a href="https://www.imdb.com/calendar/">Upcoming Releases</a>
@@ -109,13 +122,22 @@
         <label for="movie-name">Enter Movie Name:</label>
         <input type="text" id="movie-name" placeholder="Search for a movie">
         <button onclick="searchMovie()">Search</button>
-
+        <div class="subscribe-message" id="subscribe-message" style="background-color: white; padding: 10px; border-radius: 5px; animation: slideDown 0.5s;">
+            Please subscribe to use MovieCritiQ for exclusive reviews.
+        </div>
+        <div class="loading" id="loading">
+            <img src="loading.gif" alt="Loading..." /> <!-- Add your loading icon here -->
+        </div>
         <div class="results" id="results">
             <!-- Results will appear here -->
         </div>
     </div>
 
     <script>
+        let searchCount = 0; // Track the number of searches
+        const maxSearches = 3; // Maximum number of searches allowed
+        let resultsDisplayed = false; // Track if results have been displayed
+
         async function searchMovie() {
             const movieName = document.getElementById('movie-name').value;
             const apiKey = 'b3452532'; // Replace with your actual OMDb API key
@@ -124,8 +146,30 @@
                 return;
             }
 
+            searchCount++; // Increment search count
+
+            if (searchCount >= maxSearches) {
+                document.getElementById('results').style.display = 'none'; // Hide movie information
+                document.getElementById('subscribe-message').style.display = 'block'; // Show subscription message
+                localStorage.setItem('subscribed', 'false'); // Set subscription status
+                return;
+            } else if (searchCount === maxSearches - 1) {
+                resultsDisplayed = true; // Allow results to be displayed after the second search
+            }
+
+            document.getElementById('loading').style.display = 'block'; // Show loading icon
+
             try {
                 const movieResponse = await fetch(`https://www.omdbapi.com/?apikey=${apiKey}&t=${encodeURIComponent(movieName)}`);
+                document.getElementById('loading').style.display = 'none'; // Hide loading icon
+
+                if (localStorage.getItem('subscribed') === 'false' && resultsDisplayed) {
+                    document.getElementById('results').style.display = 'none'; // Hide movie information
+                    document.getElementById('subscribe-message').style.display = 'block'; // Show subscription message
+                    return;
+                }
+                document.getElementById('results').style.display = 'block'; // Show movie information
+
                 const movieData = await movieResponse.json();
 
                 if (movieData.Response === "False") {
@@ -183,6 +227,7 @@
 
                 document.getElementById('results').innerHTML = resultsHTML;
             } catch (error) {
+                document.getElementById('loading').style.display = 'none'; // Hide loading icon
                 alert("Error fetching movie data.");
             }
         }
