@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subscribe - Movie Review Club</title>
+    
     <style>
         body {
             background-color: #000;
@@ -18,7 +19,6 @@
             background: #1a1a1a;
             padding: 20px;
             border-radius: 10px;
-            
         }
         h1 {
             color: #ff0000;
@@ -26,18 +26,21 @@
         p {
             font-size: 18px;
         }
-        .paypal-button {
-            background-color: #ff0000;
-            color: white;
-            font-size: 18px;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-            margin-top: 20px;
+        #paypal-button-container {
+            display: flex;
+            justify-content: center; /* Center the button */
         }
-        .paypal-button:hover {
-            background-color: #cc0000;
+        #try-out-button {
+            padding: 12px 30px; /* Increased padding for larger button */
+            font-size: 18px; /* Increased font size */
+            background-color: #ff0000; /* Button color */
+            color: white; /* Text color */
+            border: none; /* No border */
+            border-radius: 10px; /* Rounded corners */
+            cursor: pointer; /* Pointer cursor on hover */
+        }
+        #try-out-button:hover {
+            background-color: #cc0000; /* Darker red on hover */
         }
     </style>
 </head>
@@ -45,20 +48,40 @@
     <div class="container">
         <h1>MovieCritiQ</h1>
         <p>Subscribe for only <strong>$1/month</strong> to access premium movie reviews!</p>
-        
-        <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
-            <input type="hidden" name="cmd" value="_xclick-subscriptions">
-            <input type="hidden" name="business" value="victorwasswa37@gmail.com">
-            <input type="hidden" name="item_name" value="Movie Review Subscription">
-            <input type="hidden" name="a3" value="1.00">
-            <input type="hidden" name="p3" value="1">
-            <input type="hidden" name="t3" value="M">
-            <input type="hidden" name="src" value="1">
-            <input type="hidden" name="currency_code" value="USD">
-<input type="hidden" name="return" value="SignIn.html">
+        <button id="try-out-button">Try Out Once</button>
+        <br>
+        <div id="try-out-message" style="display: none; color: #ff0000;">You have one search available. After that, please subscribe.</div>
 
-            <button type="submit" class="paypal-button">Join for $1/month</button>
-        </form>
+        <div style="text-align: center;">
+        <script src="https://www.paypal.com/sdk/js?client-id=BAA0YaQES8mONa3zj9zEKYkl7kC_Tg05jQt7nTB_oRs_yaX2WjEA_56FGrR85n4dzcyV7PepD9955_UKas&components=hosted-buttons&disable-funding=venmo&currency=USD"></script>
+        <div id="paypal-container-AANETWCSXGHY6"></div>
+        <script>
+          paypal.HostedButtons({
+            hostedButtonId: "AANETWCSXGHY6",
+          }).render("#paypal-container-AANETWCSXGHY6")
+        </script>
+        </div>
+        
+        <script>
+            let searchCount = 0; // Track the number of searches
+
+            // Check if the user has already searched
+            if (localStorage.getItem('searchCount')) {
+                searchCount = parseInt(localStorage.getItem('searchCount'));
+            }
+
+            // If the user has already searched, disable the button and show a message
+            if (searchCount >= 1) {
+                document.getElementById('try-out-button').disabled = true; // Disable the button
+                document.getElementById('try-out-message').style.display = 'block'; // Show message
+            } else {
+                document.getElementById('try-out-button').addEventListener('click', function() {
+                    localStorage.setItem('searchCount', searchCount + 1); // Increment search count
+                    window.location.href = 'MovieCritiQ.html'; // Redirect to main page
+                });
+            }
+        </script>
     </div>
 </body>
 </html>
+
