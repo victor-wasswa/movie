@@ -7,40 +7,58 @@
     
     <style>
         body {
-            background-color: #000;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('cinema.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             color: #fff;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
         }
+
         .container {
             max-width: 500px;
-            margin: auto;
-            background: #1a1a1a;
-            padding: 20px;
+            margin: 20px auto;
+            padding: 40px;
+            background-color: rgba(51, 51, 51, 0.5);
             border-radius: 10px;
+            backdrop-filter: blur(5px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 70vh;
         }
+
+
         h1 {
             color: #ff0000;
+            font-size: 3.5em;
+            font-weight: 900;
+            font-family: 'Arial Black', sans-serif;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
+
         p {
             font-size: 18px;
         }
         #paypal-button-container {
             display: flex;
-            justify-content: center; /* Center the button */
+            justify-content: center; 
         }
         #try-out-button {
-            padding: 12px 30px; /* Increased padding for larger button */
-            font-size: 18px; /* Increased font size */
-            background-color: #ff0000; /* Button color */
-            color: white; /* Text color */
-            border: none; /* No border */
-            border-radius: 10px; /* Rounded corners */
-            cursor: pointer; /* Pointer cursor on hover */
+            padding: 12px 30px; 
+            font-size: 18px; 
+            background-color: #ff0000; 
+            color: white; 
+            border: none; 
+            border-radius: 10px; 
+            cursor: pointer; 
         }
         #try-out-button:hover {
-            background-color: #cc0000; /* Darker red on hover */
+            background-color: #cc0000; 
         }
     </style>
 </head>
@@ -82,6 +100,27 @@
             }
         </script>
     </div>
+    <footer style="
+        background-color: transparent;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        font-size: 0.6em;
+
+        margin-top: 40px;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    ">
+        <p><strong>All Rights Reserved</strong><br>
+        All content on this website is the exclusive property of the respective owners, including but not limited to reviews, articles, images, and videos. Unauthorized use or reproduction of any content is prohibited.</p>
+        <p><strong>Privacy Policy</strong><br>
+        Your privacy is important to us. We collect and use personal data only for the purposes of providing a better user experience. We do not share your personal information with third parties without your consent.</p>
+        <p><strong>Company Registration</strong><br>
+        MovieCritiQ was officially registered in 2023 and operates in full compliance with applicable laws and regulations.</p>
+        <p>Thank you for visiting MovieCritiQ!</p>
+    </footer>
+
+
 </body>
 </html>
+
 
