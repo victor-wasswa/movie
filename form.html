@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - MovieCritiQ</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('cinema.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #fff;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 40px;
+            background-color: rgba(51, 51, 51, 0.5);
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 70vh;
+        }
+
+        h1 {
+            color: #ff0000;
+            font-size: 3.5em;
+            font-weight: 900;
+            font-family: 'Arial Black', sans-serif;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .form-group {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 18px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #ff0000;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .error-message {
+            color: #ff0000;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sign Up</h1>
+        <form id="signup-form">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <div style="position: relative;">
+                    <input type="password" id="password" name="password" required>
+                    <span style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; color: black;" onclick="togglePassword('password')">
+                        👁
+                    </span>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password:</label>
+                <div style="position: relative;">
+                    <input type="password" id="confirm-password" name="confirm-password" required>
+                    <span style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; color: black;" onclick="togglePassword('confirm-password')">
+                        👁
+                    </span>
+
+                </div>
+            </div>
+
+            <button type="submit">Sign Up</button>
+            <div class="error-message" id="error-message"></div>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('signup-form');
+        const errorMessage = document.getElementById('error-message');
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+
+            // Basic validation
+            if (password !== confirmPassword) {
+                errorMessage.textContent = 'Passwords do not match!';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            try {
+                const response = await fetch('http://localhost:3001/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password }),
+                    credentials: 'include'
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    window.location.href = 'MovieCritiQ.html';
+                } else {
+                    errorMessage.textContent = data.message || 'Registration failed';
+                    errorMessage.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Registration error:', error);
+                errorMessage.textContent = 'Registration failed. Please try again.';
+                errorMessage.style.display = 'block';
+            }
+        });
+    </script>
+
+    <script>
+        function togglePassword(fieldId) {
+            const passwordField = document.getElementById(fieldId);
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+            } else {
+                passwordField.type = "password";
+            }
+        }
+
+        // Check for existing session on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const response = await fetch('http://localhost:3001/user', {
+                    credentials: 'include'
+                });
+                
+                if (response.ok) {
+                    window.location.href = 'MovieCritiQ.html';
+                }
+            } catch (error) {
+                console.error('Session check error:', error);
+            }
+        });
+    </script>
+
+    <footer style="
+        background-color: transparent;
+        color: white;
+        text-align: center;
+        padding: 20px;
+        font-size: 0.6em;
+        margin-top: 40px;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    ">
+        <p><strong>All Rights Reserved</strong><br>
+        All content on this website is the exclusive property of the respective owners, including but not limited to reviews, articles, images, and videos. Unauthorized use or reproduction of any content is prohibited.</p>
+        <p><strong>Privacy Policy</strong><br>
+        Your privacy is important to us. We collect and use personal data only for the purposes of providing a better user experience. We do not share your personal information with third parties without your consent.</p>
+        <p><strong>Company Registration</strong><br>
+        MovieCritiQ was officially registered in 2023 and operates in full compliance with applicable laws and regulations.</p>
+        <p>Thank you for visiting MovieCritiQ!</p>
+    </footer>
+</body>
+</html>
