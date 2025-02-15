@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,7 +32,6 @@
             min-height: 70vh;
         }
 
-
         h1 {
             color: #ff0000;
             font-size: 3.5em;
@@ -60,14 +60,29 @@
         #try-out-button:hover {
             background-color: #cc0000; 
         }
+        #sign-in-button {
+            padding: 12px 30px;
+            font-size: 18px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        #sign-in-button:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>MovieCritiQ</h1>
         <p>Subscribe for only <strong>$1/month</strong> to access premium movie reviews!</p>
-        <button id="try-out-button">Try Out Once</button>
-        <br>
+        <div style="display: flex; gap: 10px; justify-content: center;">
+            <button id="try-out-button">Try Out Once</button>
+            <button id="sign-in-button" onclick="window.location.href='form.html'">Sign In</button>
+        </div>
+
         <div id="try-out-message" style="display: none; color: #ff0000;">You have one search available. After that, please subscribe.</div>
 
         <div style="text-align: center;">
@@ -118,9 +133,8 @@
         MovieCritiQ was officially registered in 2023 and operates in full compliance with applicable laws and regulations.</p>
         <p>Thank you for visiting MovieCritiQ!</p>
     </footer>
-
-
 </body>
 </html>
+
 
 
