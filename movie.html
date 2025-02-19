@@ -25,6 +25,8 @@
             position: relative;
         }
 
+
+
         .navbar a {
             color: #fff;
             text-decoration: none;
@@ -36,9 +38,13 @@
             transition: all 0.3s ease;
         }
 
+
+
         .navbar a:hover {
             background-color: rgba(255, 255, 255, 0.1);
         }
+
+
 
         .navbar a::after {
             content: '';
@@ -77,14 +83,30 @@
             margin: 10px 0;
         }
 
+        .search-container {
+            position: relative;
+            width: 90%;
+            margin: 10px 0;
+        }
+        
         input[type="text"] {
             width: 100%;
-            padding: 10px;
-            margin: 10px 0;
+            padding: 10px 10px 10px 40px;
             border: 1px solid #ccc;
-            border-radius: 5px;
-            text-align: center;
+            border-radius: 25px;
+            text-align: left;
         }
+        
+        .search-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 20px;
+            cursor: pointer;
+        }
+
+
 
         button {
             padding: 10px 60px;
@@ -181,8 +203,13 @@
     <div class="container">
         <h1 style="font-size: 70px;">MovieCritiQ</h1>
         <label for="movie-name">Enter Movie Name:</label>
-        <input type="text" id="movie-name" placeholder="Search for a movie">
-        <button onclick="searchMovie()">Search</button>
+        <div class="search-container">
+            <input type="text" id="movie-name" placeholder="Enter exact movie name for best results" onkeypress="if(event.keyCode == 13) searchMovie()">
+            <img src="https://cdn-icons-png.flaticon.com/512/54/54481.png" class="search-icon" onclick="searchMovie()" alt="Search">
+        </div>
+
+
+
 
         <div class="subscribe-message" id="subscribe-message" style="background-color: white; padding: 10px; border-radius: 5px; animation: slideDown 0.5s;">
             Please subscribe to use MovieCritiQ for exclusive reviews.
@@ -344,4 +371,3 @@
     </script>
 </body>
 </html>
-
